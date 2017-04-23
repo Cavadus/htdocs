@@ -8,7 +8,11 @@
   <body>
 
     <?php
+      #Localhost
+      #$con = mysqli_connect("localhost","root","","slc");
+      #Production
       $con = mysqli_connect("47th.info","thinfo_user","password01","thinfo_slc");
+
       $query = mysqli_query($con, "SELECT * FROM data");
      ?>
 
@@ -16,18 +20,18 @@
     <div class="caption">
       <span class="border">Student Learning Collection by Levi Kavadas</span>
       <br><br><br><br><br><br>
-      <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">Creating Web Solutions Using a Variety of Languages</span>
+      <span class="border1">Create web solutions using a variety of programming languages.</span>
     </div>
   </div>
 
-  <div style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+  <div style="color: #777;background-color:#1d2120;text-align:center;padding:50px 80px;text-align: justify;">
     <?php
       $count = 1;
       while ($count < 3 && $get=Mysqli_fetch_assoc($query)) {
     ?>
 
 
-    <h3 style="text-align:center;"><?php echo $get['title']; ?></h3>
+    <h3 style="text-align:center;"><span class="alt"><?php echo $get['title']; ?></span></h3>
   </br>
     <?php echo '<center><img src="img/'.$get['filename'].'" width="400" height="350"></center>'; ?>
     <p><?php echo $get['reflection']; ?></h2></p>
@@ -41,12 +45,12 @@
 
   <div class="bgimg-2">
     <div class="caption">
-      <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">Evaluate Organizational Structure of a Business</span>
+      <span class="border1">Evaluate the organizational structure of a business in order to facilitate data management.</span>
     </div>
   </div>
 
   <div style="position:relative;">
-    <div style="color:#ddd;background-color:#282E34;text-align:center;padding:50px 80px;text-align: justify;">
+    <div style="color:white;background-color:#5a5c51;text-align:center;padding:50px 80px;text-align: justify;">
       <?php
         $count = 3;
         while ($count < 5 && $get=Mysqli_fetch_assoc($query)) {
@@ -67,18 +71,18 @@
 
   <div class="bgimg-3">
     <div class="caption">
-      <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">Illustrate Networks</span>
+      <span class="border1">Illustrate networks used for the internet.</span>
     </div>
   </div>
 
-  <div style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+  <div style="color: #777;background-color:#1d2120;text-align:center;padding:50px 80px;text-align: justify;">
     <?php
       $count = 5;
       while ($count < 7 && $get=Mysqli_fetch_assoc($query)) {
     ?>
 
 
-    <h3 style="text-align:center;"><?php echo $get['title']; ?></h3>
+    <h3 style="text-align:center;"><span class="alt"><?php echo $get['title']; ?></span></h3>
   </br>
     <?php echo '<center><img src="img/'.$get['filename'].'" width="400" height="350"></center>'; ?>
     <p><?php echo $get['reflection']; ?></h2></p>
@@ -90,14 +94,14 @@
     ?>
   </div>
 
-  <div class="bgimg-2">
+  <div class="bgimg-4">
     <div class="caption">
-      <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">Articulate Development Solutions</span>
+      <span class="border1">Articulate development solutions to peers and supervisors.</span>
     </div>
   </div>
 
   <div style="position:relative;">
-    <div style="color:#ddd;background-color:#282E34;text-align:center;padding:50px 80px;text-align: justify;">
+    <div style="color:white;background-color:#5a5c51;text-align:center;padding:50px 80px;text-align: justify;">
       <?php
         $count = 7;
         while ($count < 9 && $get=Mysqli_fetch_assoc($query)) {
@@ -117,20 +121,20 @@
     </div>
   </div>
 
-  <div class="bgimg-3">
+  <div class="bgimg-5">
     <div class="caption">
-      <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">Determine if a Database is Properly Structured</span>
+      <span class="border1">Determine that a database is properly structured.</span>
     </div>
   </div>
 
-  <div style="color: #777;background-color:white;text-align:center;padding:50px 80px;text-align: justify;">
+  <div style="color: #777;background-color:#1d2120;text-align:center;padding:50px 80px;text-align: justify;">
     <?php
       $count = 9;
       while ($count < 11 && $get=Mysqli_fetch_assoc($query)) {
     ?>
 
 
-    <h3 style="text-align:center;"><?php echo $get['title']; ?></h3>
+    <h3 style="text-align:center;"><span class="alt"><?php echo $get['title']; ?></span></h3>
   </br>
     <?php echo '<center><img src="img/'.$get['filename'].'" width="400" height="350"></center>'; ?>
     <p><?php echo $get['reflection']; ?></h2></p>
@@ -142,9 +146,9 @@
     ?>
   </div>
 
-  <div class="bgimg-1">
+  <div class="bgimg-6">
     <div class="caption">
-      <span class="border">COOL!</span>
+      <span class="border">Now Tayne I can get into.</span>
     </div>
   </div>
 
