@@ -5,6 +5,7 @@ body, html {
   color: #777;
 }
 
+
 .bgimg-1, .bgimg-2, .bgimg-3, .bgimg-4, .bgimg-5, .bgimg-6 {
   position: relative;
   opacity: 0.65;
@@ -57,16 +58,16 @@ body, html {
   background-color: #1d2120;
   color: #fff;
   padding: 18px;
-  font-size: 40px;
-  letter-spacing: 14px;
+  font-size: 25px;
+  letter-spacing: 6px;
 }
 
 .caption span.border1 {
   background-color: #5a5c51;
   color: #fff;
   padding: 18px;
-  font-size: 28px;
-  letter-spacing: 10px;
+  font-size: 16px;
+  letter-spacing: 4px;
 }
 
 h3 {

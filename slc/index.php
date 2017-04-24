@@ -9,9 +9,9 @@
 
     <?php
       #Localhost
-      #$con = mysqli_connect("localhost","root","","slc");
+      $con = mysqli_connect("localhost","root","","slc");
       #Production
-      $con = mysqli_connect("47th.info","thinfo_user","password01","thinfo_slc");
+      #$con = mysqli_connect("47th.info","thinfo_user","password01","thinfo_slc");
 
       $query = mysqli_query($con, "SELECT * FROM data");
      ?>
@@ -24,7 +24,7 @@
     </div>
   </div>
 
-  <div style="color: #777;background-color:#1d2120;text-align:center;padding:50px 80px;text-align: justify;">
+  <div style="color: #777;background-color:#1d2120;text-align:center;padding:50px 80px;text-align: justify;width=500px;">
     <?php
       $count = 1;
       while ($count < 3 && $get=Mysqli_fetch_assoc($query)) {
@@ -34,7 +34,7 @@
     <h3 style="text-align:center;"><span class="alt"><?php echo $get['title']; ?></span></h3>
   </br>
     <?php echo '<center><img src="img/'.$get['filename'].'" width="400" height="350"></center>'; ?>
-    <p><?php echo $get['reflection']; ?></h2></p>
+    <?php echo $get['reflection']; ?></h2>
   </br>
   </br>
     <?php
