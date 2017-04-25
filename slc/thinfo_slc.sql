@@ -1,0 +1,74 @@
+-- phpMyAdmin SQL Dump
+-- version 4.6.6
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost:3306
+-- Generation Time: Apr 24, 2017 at 10:49 PM
+-- Server version: 5.6.35
+-- PHP Version: 5.6.30
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `thinfo_slc`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data`
+--
+
+CREATE TABLE `data` (
+  `id` int(11) NOT NULL,
+  `outcome` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `filename` varchar(255) NOT NULL,
+  `reflection` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `data`
+--
+
+INSERT INTO `data` (`id`, `outcome`, `title`, `filename`, `reflection`) VALUES
+(1, 'Create web solutions using a variety of programming languages.', 'Kavadas Industries Website', 'kav_ind.png', '<p>My Kavadas Industries website was my final web project in Intro to Web.  It required everything that was previously taught in HTML, CSS, JavaScript, JQUERY, and more to be combined into a single web project.</p>\n\n<p>As I worked on the project it quickly became apparent which facets I enjoyed and which I didn\'t.  Some of the smaller bits of the site were things like using a JQUERY lightbox for images, JavaScript for a sliding tooltip pop-up, and the audio HTML tag.  I found that I enjoyed getting these features integrated, working, and then tailoring them to my tastes.  What I did not enjoy, however, is styling, styling, and more styling.</p>\n\n<p>The DIV box model and CSS quickly became a large source of frustration and consumed the most time.  Styling is very pedantic and I’m simply more interested in functional programming or database work than I am aesthetics.</p>\n\n<p>The largest lesson learned from this project is that I’m not, nor will I ever be, nor could I ever be paid to be, a frontend developer.  Overall, I was satisfied with the result and it’s the most work from scratch I’ve ever put into CSS to date.  I have no desire to reproduce it.</p>'),
+(2, 'Create web solutions using a variety of programming languages.', 'Imperial Kitchen Troops', 'imp_kit.png', '<p>Imperial Kitchen Troops was a relatively simple web page which utilized HTML and CSS and used ASP.NET to attach C# coding to page functions.  This page simply took in a number entered by the user as a variable and ran a mathematical function which converted it between liters and ounces.</p>\n\n<p>This project was for Business Applications which was taken alongside Advanced Programming which synergized my learning of C# between the two classes. I rather enjoyed C# and found that, of all the languages I had learned thus far, it came the most easily to me both logically and syntactically.  I could utilize pseudo-code most effectively with it.</p>\n\n<p>I found hooking the code to various HTML elements very interesting as well as the master page elements which allowed global website objects and functions to be consolidated into a single document yet recursed through the entire website.</p>\n\n<p>Though ASP.NET is an aging framework it is still hugely popular across the industry and drives hundreds of thousands of websites including most Microsoft websites, GoDaddy.com, SalesForce.com, NIH.gov, and much more.</p>'),
+(3, 'Evaluate the organizational structure of a business in order to facilitate data management.', 'Agile Vision Board', 'bus_boa.png', '<p>This vision board was created for a group project in Business Architecture as part of the agile development process.  The vision board is the overarching goal of the project including who is involved, what they need to do, what is needed to accomplish that, cost, and how revenue will be generated.</p>\n\n<p>This vision board was for a website based on the fictional Rekall Corporation from 1990’s smash science fiction epic Total Recall which is based on Phillip K. Dick’s short story entitled We Can Remember It For You Wholesale.  The website was intended to showcase some of the various features available to customers on their EgoTrip.  The website allowed a customer to configure some simple options of their EgoTrip such as location, background, and extra characters.  This information was then sent on to an EgoTrip advisor who would then contact the customer and begin finalizing their EgoTrip itinerary.</p>\n\n<p>There was going to be a huge amount of data created and stored and, as per the vision board, our group brainstormed the technical side of management of said data including the hardware aspect and thoughts on cost.</p>\n\n<p>Agile software development is one of, if not the, most widely used development methodology in our industry and the vision board serves as one of the most important documents of the method.  Though the minutiae of agile development weren’t something I found particularly interesting I can recognize its value nonetheless, particularly with large projects that feature many coders.  I was taught that as projects like this scale the development methodology becomes more and more important for keeping team(s) synchronized and work moving forward.</p>'),
+(4, 'Evaluate the organizational structure of a business in order to facilitate data management.', 'Unified Modeling Language Activity Diagram', 'psy_act.png', '<p>The activity diagram is process of unified modeling language which is set of standardized diagrams and symbols used in the development documentation process.  This diagram was used for the previously mentioned Rekall website.  It showcases the workflow of the product through various mediums such as hardware, personnel, and even the customer.</p>\n\n<p>This is another part of the agile software development method.  The diagram allowed my group to easily visualize the data generation and traffic route it would need to take to satisfy the needs of the product.\n\n<p>I found this to be a very helpful “big picture” document.  It allowed my group to understand how data for our product is generated and used.  It’s most important use was creating a visual flow of the data.  I could easily see where data needed to start, where it needed to be changed, and where it eventually needed to end.</p>\n\n<p>This document help me refine my skill in Microsoft Visio which is a powerful graphical tool to aid in software development.  It took some effort to understand the graphics but once familiar it became a great tool to quickly and easily iterate diagrams.  In a larger development studio tools like this, and the above-mentioned vision board, become important parts of the process in helping developers and management understand and agree on larger concepts.</p>'),
+(5, 'Illustrate networks used for the Internet.', 'Subnetting', 'sub_net.jpg', '<p>Dividing a network is subnetting.  In Network Fundamentals, I was taught how to manually derive a subnet from an IP address using Boolean algebra.  This concept allowed us to understand how some of the larger aspects of networks across the web function.</p>\n\n<p>I generally like math and, though the operation can be a little tricky, deriving the subnet felt like an accomplishment.\n\n<p>In my Open Source class, I’ve done all of my work inside of various Linux operating systems and I’ve setup many clients, firewalls, and servers using multi-processing modules such as Apache and Nginx.  Understanding subnets has helped me troubleshoot connectivity errors and more fully understand how all of these services interface with one another to ensure proper packet flow.</p>'),
+(6, 'Illustrate networks used for the Internet.', 'DHCP Server', 'dhcp_ser.png', '<p>Dynamic Host Configuration Protocol is a network service that can configure IP addresses, netmasks, nameserver addresses, gateways, and a few other things.  In this lab, I setup a simple DHCP server which allowed me to set clients’ IP addresses in a scope and resolve them through a nameserver and gateway.</p>\n\n<p>I’ve thoroughly enjoyed the exposure to Linux in my Open Source class and have moved the bulk of my own development work into Kubuntu at this point.</p>\n\n<p>Though setting up DHCP servers may or may not be hugely applicable to software development it has allowed me to better understand how network traffic works and troubleshoot connectivity errors.</p>'),
+(7, 'Articulate development solutions to peers and supervisors.', 'Bike to Future', 'bik_fut.png', '<p>This web application was a simple contact form which allowed the user to use dropdown menus which activated queries that populated the next dropdown menu.  This allowed the user to drill down to a specific product, have the page display all of the database’s information on the selected product in a readable format, and then continue on to an e-mail inquiry if necessary with the product info attached.  The layout and design of this document was left to the individual and, when the project was completed, I met with my instructor to explain my design choices in the information display.</p>\n\n<p>I really liked putting thought into how a user would interact with this project.  What seemed like simple and straightforward design choices to me were quickly called into question by my instructor and I had to defend them.  Ultimately, this reinforced that what I, as a programmer, find most appropriate is not always what the average consumer may find intuitive.</p>\n\n<p>I was watching HBO’s Silicon Valley series at the time and was able to relate to the show’s protagonist in a specific episode where his product was obviously made by developers for developers, the average consumer could not navigate the interface, and it took a multi-hour long block of instruction before users understood the interface.</p>'),
+(8, 'Articulate development solutions to peers and supervisors.', 'Bug-Eyed Monster', 'bug_eye.png', '<p>Bug-Eyed Monster was an interesting project because it was one of the few times where I inherited a piece of defective code and had to debug it.  The code was analyzed, troubleshot, and then I had to present the corrected code to the instructor to confirm or deny that all the bugs had been squashed.</p>\n\n<p>I liked this exercise a lot as code inheritance is very common in our industry.  It also reinforced the importance of documentation as this was a poorly documented project.  After I believed I had fixed all the bugs it was time to present it to the instructor and it was very educational to discover which bugs I did and didn’t catch and why.</p>\n\n<p>Bug fixing is a huge part of software development and being to identify, correct, and then present these corrections to a supervisor is just as important as being able write code itself.</p>'),
+(9, 'Determine that a database is properly structured.', 'Data Normalization', 'normal.png', '<p>In my Database Systems class a lot of time was spent on learning how to atomize data and convert between the different forms.  In most assignments, I took data in first normal form and converted it to third normal form which is the most utilized proper data form.</p>\n\n<p>In a previous database class I was taught, “The key, the whole key, and nothing but the key; so help me, Codd,” in reference to Edgar F. Codd, the father of relational databases.  This mnemonic device has helped me in the past remember how the various forms of data work.</p>\n\n<p>In this particular assignment, I took a relational table of data in first normal form and converted it into third.  I enjoyed this exercise quite as a bit as the work quickly pays off when developing efficient queries down the road.  I’m always intrigued by discovering how many tables I end up with as even a simple enough looking table in first normal form can quickly transition into many tables when atomizing the data.</p>\n\n<p>This obviously has huge application in any career which works with databases as one will constantly be creating databases, tables, and/or querying them extensively.  So much of everything, on the web or desktop/device software, is database driven.  Virtually anything with data persistence relies on a database of some fashion.</p>'),
+(10, 'Determine that a database is properly structured.', 'My Robot Butler', 'rob_but.png', '<p>This project is from Data Organization and in it we were instructed to create a database.  Though a seemingly simple task, it used MySQL code to create the database, declare the tables, declare the columns, associated datatypes, lengths, and more general parameters such as the disk space to be used and the amount of additional disk space the database was allowed to consume.</p>\n\n<p>I really enjoyed this project and found it to be incredibly useful.  Though setting up databases in things like PHPmyAdmin are significantly easier as most of the small details are handled for you, this MySQL database creation allowed me to structure the database to an incredibly specific degree.</p>\n\n<p>In general, I really like working with databases and I hope it’s a large part of my future career.  Being able to rapidly deploy a MySQL database to very specific standards is a valuable skill I can carry with me to any job utilizing relational databases.</p>');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `data`
+--
+ALTER TABLE `data`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `data`
+--
+ALTER TABLE `data`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

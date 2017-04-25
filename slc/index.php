@@ -16,6 +16,17 @@
       $query = mysqli_query($con, "SELECT * FROM data");
      ?>
 
+  <div class="topnav" id="myTopnav">
+      <a href="#top">Top</a>
+      <a href="#web_sol">Create Web Solutions</a>
+      <a href="#org_bus">Evaluation Structure</a>
+      <a href="#ill_net">Illustrate Networks</a>
+      <a href="#dev_sol">Articulate Solutions</a>
+      <a href="#dat_str">Database Structure</a>
+      <a href="#tayne">Tayne</a>
+    </center>
+  </div>
+  <a name="web_sol" />
   <div class="bgimg-1">
     <div class="caption">
       <span class="border">Student Learning Collection by Levi Kavadas</span>
@@ -24,7 +35,7 @@
     </div>
   </div>
 
-  <div style="color: #777;background-color:#1d2120;text-align:center;padding:50px 80px;text-align: justify;width=500px;">
+  <div style="color: #777;background-color:#1d2120;text-align:center;padding:50px 80px;text-align: justify;">
     <?php
       $count = 1;
       while ($count < 3 && $get=Mysqli_fetch_assoc($query)) {
@@ -34,7 +45,7 @@
     <h3 style="text-align:center;"><span class="alt"><?php echo $get['title']; ?></span></h3>
   </br>
     <?php echo '<center><img src="img/'.$get['filename'].'" width="400" height="350"></center>'; ?>
-    <?php echo $get['reflection']; ?></h2>
+    <p><?php echo $get['reflection']; ?></h2></p>
   </br>
   </br>
     <?php
@@ -42,7 +53,7 @@
       }
     ?>
   </div>
-
+  <a name="org_bus" />
   <div class="bgimg-2">
     <div class="caption">
       <span class="border1">Evaluate the organizational structure of a business in order to facilitate data management.</span>
@@ -68,7 +79,7 @@
       ?>
     </div>
   </div>
-
+  <a name="ill_net" />
   <div class="bgimg-3">
     <div class="caption">
       <span class="border1">Illustrate networks used for the internet.</span>
@@ -93,7 +104,7 @@
       }
     ?>
   </div>
-
+  <a name="dev_sol" />
   <div class="bgimg-4">
     <div class="caption">
       <span class="border1">Articulate development solutions to peers and supervisors.</span>
@@ -120,7 +131,7 @@
       ?>
     </div>
   </div>
-
+  <a name="dat_str" />
   <div class="bgimg-5">
     <div class="caption">
       <span class="border1">Determine that a database is properly structured.</span>
@@ -145,7 +156,7 @@
       }
     ?>
   </div>
-
+  <a name="tayne" />
   <div class="bgimg-6">
     <div class="caption">
       <span class="border">Now Tayne I can get into.</span>
