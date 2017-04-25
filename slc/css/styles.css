@@ -89,13 +89,6 @@ h3 span.alt {
   display: inline-block;
 }
 
-/* Turn off parallax scrolling for tablets and phones */
-@media only screen and (max-device-width: 1024px) {
-    .bgimg-1, .bgimg-2, .bgimg-3 {
-        background-attachment: scroll;
-    }
-}
-
 .topnav {
     background-color: #333;
     overflow: hidden;
@@ -128,4 +121,11 @@ h3 span.alt {
 .topnav a.active {
     background-color: #4CAF50;
     color: white;
+}
+
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1024px) {
+    .bgimg-1, .bgimg-2, .bgimg-3 {
+        background-attachment: scroll;
+    }
 }
