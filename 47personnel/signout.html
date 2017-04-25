@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+
+    <title></title>
+    <meta http-equiv="refresh" content="5; url=http://47th.info/personnel/" />
+
+    <style>
+
+      #wrapper {
+        display: inline-block;
+      }
+
+      #countdown {
+        display: inline-block;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <div id="wrapper">You have been signed out.  You will be redirected to the login page in: <div id="countdown">5</div></div>
+  </body>
+
+</html>
+
+<script type="text/javascript">
+  var seconds;
+  var temp;
+
+  function countdown() {
+    seconds = document.getElementById('countdown').innerHTML;
+    seconds = parseInt(seconds, 10);
+
+    if (seconds == 1) {
+      temp = document.getElementById('countdown');
+      temp.innerHTML = "Redirecting...";
+      return;
+    }
+
+    seconds--;
+    temp = document.getElementById('countdown');
+    temp.innerHTML = seconds;
+    timeoutMyOswego = setTimeout(countdown, 1000);
+  }
+
+  countdown();
+</script>

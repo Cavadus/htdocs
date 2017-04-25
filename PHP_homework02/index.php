@@ -32,7 +32,7 @@
       if($queryPHP->rowCount() == 0) {
         $error = "Invalid login.";
       }
-
+l
       else {
           $_SESSION['username'] = $username;
 
