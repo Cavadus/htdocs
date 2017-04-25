@@ -1,4 +1,5 @@
 <?php
+
   session_start();
   ob_start();
 
@@ -8,8 +9,8 @@
 
       require 'connect.php';
 
-      if(isset($_POST['userName'])) {
-        $username = $_POST['userName'];
+      if(isset($_POST['username'])) {
+        $username = $_POST['username'];
       }
 
       if(isset($_POST['password'])) {
@@ -18,17 +19,22 @@
       }
 
       // Check if userName and password are in database
-      $querySQL = 'SELECT * FROM homework02 WHERE userName=:userName AND password=:password';
+      $querySQL = 'SELECT * FROM homework02 WHERE username=:username AND password=:password';
       $queryPHP = $db->prepare($querySQL);
-      $queryPHP->execute(array(':userName' => $username, ':password' => $md5_pass));
+      $queryPHP->execute(array(':username' => $username, ':password' => $md5_pass));
+
+      if($queryPHP->rowCount() == 1) {
+        $_SESSION['username'] = $username;
+        header("location:welcome.php");
+        exit;
+      }
 
       if($queryPHP->rowCount() == 0) {
         $error = "Invalid login.";
       }
 
-
       else {
-          $_SESSION['userName'] = $username;
+          $_SESSION['username'] = $username;
 
           //Fetch array results
           $row = $queryPHP->fetch(PDO::FETCH_ASSOC);
@@ -38,6 +44,7 @@
           $_SESSION['sess_username'] = $row['userName'];
       }
   }
+
 ?>
 
 <!DOCTYPE html>
@@ -92,3 +99,7 @@
   </body>
 
 </html>
+
+<?php
+  ob_end_flush();
+ ?>

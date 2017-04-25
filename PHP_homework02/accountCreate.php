@@ -16,7 +16,7 @@ if(isset($_POST['addbtn']))
             $user_pass = $_POST['password'];
             $md5pass = md5($user_pass);
 
-            $stmt = $db->prepare("INSERT INTO data(userName,password,securityQues,securityAns)VALUES(:Username,:Password,:SecurityQ,:SecurityA)");
+            $stmt = $db->prepare("INSERT INTO homework02(userName,password,securityQues,securityAns)VALUES(:Username,:Password,:SecurityQ,:SecurityA)");
             $stmt->execute(array("Username" => $_POST['username'],
                                 "Password" => $md5pass,
                                 "SecurityQ" => $_POST['security'],
