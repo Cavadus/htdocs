@@ -35,7 +35,7 @@
          <div class="container-fluid">
              <div class="navbar-header"> <a class="navbar-brand" href="index.php">ABC Stone Minnesota</a> </div>
          </div>
-     </nav>
+    </nav>
 
   	<div class="container">
 

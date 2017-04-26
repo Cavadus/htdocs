@@ -17,15 +17,19 @@
      ?>
 
   <div class="topnav" id="myTopnav">
-      <a href="#top">Top</a>
-      <a href="#web_sol">Create Web Solutions</a>
-      <a href="#org_bus">Evaluation Structure</a>
-      <a href="#ill_net">Illustrate Networks</a>
-      <a href="#dev_sol">Articulate Solutions</a>
-      <a href="#dat_str">Database Structure</a>
-      <a href="#tayne">Tayne</a>
-
+      <div id="left">
+        <a href="#top">Top</a>
+      </div>
+      <div id="right">
+        <a href="#web_sol">Create Web Solutions</a>
+        <a href="#org_bus">Evaluation Structure</a>
+        <a href="#ill_net">Illustrate Networks</a>
+        <a href="#dev_sol">Articulate Solutions</a>
+        <a href="#dat_str">Database Structure</a>
+        <a href="#tayne">Tayne</a>
+    </div>
   </div>
+
   <a name="web_sol" />
   <div class="bgimg-1">
     <div class="caption">
