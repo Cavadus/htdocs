@@ -40,6 +40,7 @@
 
           //Store fetched details into $_SESSION
           $_SESSION['sess_user_id'] = $row['id'];
+          $_SESSION['sess_fname'] = $row['fname'];
           $_SESSION['sess_lname'] = $row['lname'];
       }
   }
@@ -64,6 +65,12 @@
   	 <?php
         require('connect.php')
       ?>
+
+      <nav class="navbar navbar-inverse">
+           <div class="container-fluid">
+               <div class="navbar-header"> <a class="navbar-brand" href="index.php">ABC Stone Minnesota</a> </div>
+           </div>
+       </nav>
 
   	<div class="container">
 

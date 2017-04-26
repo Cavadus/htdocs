@@ -24,7 +24,7 @@
       <a href="#dev_sol">Articulate Solutions</a>
       <a href="#dat_str">Database Structure</a>
       <a href="#tayne">Tayne</a>
-    </center>
+
   </div>
   <a name="web_sol" />
   <div class="bgimg-1">

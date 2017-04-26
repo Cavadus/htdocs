@@ -1,39 +1,32 @@
 <?php
-session_start();
-ob_start();
-?>
+  session_start();
+  ob_start();
 
-<?php
-if(isset($_POST['addbtn']))
-{
-    $password = $_POST['password'];
-    $confirmed = $_POST['confirm'];
-    if($password == $confirmed)
-    {
-        try
-        {
-            require('connect.php');
-            $user_pass = $_POST['password'];
-            $md5pass = md5($user_pass);
+  if(isset($_POST['addbtn'])) {
 
-            $stmt = $db->prepare("INSERT INTO homework03(userName,password,securityQues,securityAns)VALUES(:Username,:Password,:SecurityQ,:SecurityA)");
-            $stmt->execute(array("Username" => $_POST['username'],
-                                "Password" => $md5pass,
-                                "SecurityQ" => $_POST['security'],
-                                "SecurityA" => $_POST['answer']
-                                ));
-            echo "Account Created!";
-        }
-        catch(PDOException $e)
-        {
-            echo 'ERROR: ' . $e->getMessage();
-        }
+    try {
+        require('connect.php');
+
+        $stmt = $db->prepare("INSERT INTO homework03(fname,lname,phone,email,ref_comp,ref_emp,ref_cus,on_job,on_det,oth_det)VALUES(:fname,:lname,:phone,:email,:ref_comp,:ref_emp,:ref_cus,:on_job,:on_det,:oth_det)");
+        $stmt->execute(array("fname" => $_POST['fname'],
+                            "lname" => $_POST['lname'],
+                            "phone" => $_POST['phone'],
+                            "email" => $_POST['email'],
+                            "ref_comp" => $_POST['ref_comp'],
+                            "ref_emp" => $_POST['ref_emp'],
+                            "ref_cus" => $_POST['ref_cus'],
+                            "on_job" => $_POST['on_job'],
+                            "on_det" => $_POST['on_det'],
+                            "oth_det" => $_POST['oth_det']
+                            ));
+        echo "Account Created!";
     }
-    else
-    {
-        echo 'Passwords do not match!';
+
+    catch(PDOException $e) {
+        echo 'ERROR: ' . $e->getMessage();
     }
-}
+
+  }
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +35,7 @@ if(isset($_POST['addbtn']))
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PHP Homework 2</title>
+    <title>PHP Homework 03</title>
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -50,7 +43,7 @@ if(isset($_POST['addbtn']))
 
    <nav class="navbar navbar-inverse">
         <div class="container-fluid">
-            <div class="navbar-header"> <a class="navbar-brand" href="index.php">PHP Homework 2</a> </div>
+            <div class="navbar-header"> <a class="navbar-brand" href="index.php">ABC Stone Minnesota</a> </div>
         </div>
     </nav>
 
@@ -62,47 +55,66 @@ if(isset($_POST['addbtn']))
             <h2>Create a New Account</h2>
 			<hr>
             <form id="userInput" action="" method="post">
-                <div class="input-group"> <span class="input-group-addon">Username</span>
-                    <input id="username" type="text" class="form-control" name="username" placeholder="Enter your username" required> </div>
+                <div class="input-group"> <span class="input-group-addon">First Name</span>
+                    <input id="fname" type="text" class="form-control" name="fname" placeholder="Enter your first name" class="glyphicon glyphicon-user" required> </div>
 					</br>
-                <div class="input-group"> <span class="input-group-addon">Password</span>
-                    <input id="password" type="password" class="form-control" name="password" placeholder="Password" required> </div>
+                <div class="input-group"> <span class="input-group-addon">Last Name</span>
+                    <input id="lname" type="text" class="form-control" name="lname" placeholder="Enter your last name" class="glyphicon glyphicon-user" required> </div>
 					</br>
-                <div class="input-group"> <span class="input-group-addon">Confirm Password</span>
-                    <input id="confirm" type="password" class="form-control" name="confirm" placeholder="Confirm Password" required> </div>
+                <div class="input-group"> <span class="input-group-addon">Phone Number</span>
+                    <input id="phone" type="text" class="form-control" name="phone" placeholder="Enter your phone number" class="glyphicon glyphicon-phone" required> </div>
 					</br>
-                <div class="input-group"> <span class="input-group-addon">Security Question</span>
-                <select class="form-control" id="security" name="security" onchange="showfield(this.options[this.selectedIndex].value)" required>
-                    <option selected disabled>Select your Security Question</option>
-                    <option value="Your place of birth?">Your place of birth?</option>
-                    <option value="Your first school?">Your first school?</option>
-                    <option value="Your best friend?">Your best friend?</option>
-                    <option value="Your favorite movie?">Your favorite movie?</option>
-                    <option value="Your favorite Author?">Your favorite author?</option>
-                    <option value="Your favorite athlete?">Your favorite athlete?</option>
-                    <option value="Write your own question.">Write your own question.</option>
+                <div class="input-group"> <span class="input-group-addon">E-mail</span>
+                    <input id="email" type="text" class="form-control" name="email" placeholder="Enter your e-mail address" class="glyphicon glyphicon-email" required> </div>
+          </br>
+                <div class="input-group"> <span class="input-group-addon">How did you hear about us?</span>
+                <select class="form-control" id="find" name="find" onchange="showfield1(this.options[this.selectedIndex].value)" required>
+                    <option selected disabled>Please Select an Option</option>
+                    <option value="Referral">Referral</option>
+                    <option value="Online Search">Online Search</option>
+                    <option value="Other">Other</option>
                 </select>
                 </div>
 				</br>
-                <div id="ownQues" class="input-group"></div>
-                <div class="input-group"> <span class="input-group-addon">Answer</span>
-                    <input id="password" type="text" class="form-control" name="answer" placeholder="Answer security question" required> </div>
+                <div id="expand" class="input-group"></div>
+        </br>
+                <div id="option" class="input-group"></div>
 					<hr>
                 <input type="submit" name="addbtn" class="btn btn-default" value="Create Account">
             </form>
                 </br>
-                <a href="index.php">Back to login page</a>
+                <a href="index.php">Back to Homepage</a>
             </div>
         </div>
     </div>
 
 	<script type="text/javascript">
 
-		function showfield(name)
-        {
-          if(name=='Write your own question.')document.getElementById('ownQues').innerHTML='<span class="input-group-addon">Input Question</span><input id="security" type="text" class="form-control" name="security" placeholder="Write security question" required>';
-          else document.getElementById('ownQues').innerHTML='';
-        }
+		function showfield1(name)
+    {
+      document.getElementById('option').innerHTML='';
+      if(name=='Referral')document.getElementById('expand').innerHTML='<span class="input-group-addon">Select referral type:</span><select class="form-control" id="find" name="find" onchange="showfield2(this.options[this.selectedIndex].value)" required><option selected disabled>Please Select an Option</option><option value="Company">Company</option><option value="Employee">Employee</option><option value="Customer">Customer</option></select>';
+      else if(name=='Online Search')document.getElementById('expand').innerHTML='<span class="input-group-addon">Are you a fabricator, installer, interior designer, or work in a kitchen/bath store?</span><select class="form-control" id="on_job" name="on_job" onchange="showfield3(this.options[this.selectedIndex].value)" required><option selected disabled>Please Select an Option</option><option value="Yes">Yes</option><option value="No">No</option></select>';
+      else if(name=='Other')document.getElementById('expand').innerHTML='<span class="input-group-addon">Additional Info</span><input id="oth_det" type="text" class="form-control" name="oth_det" placeholder="Additional details">';
+      else document.getElementById('expand').innerHTML='';
+    }
+
+    function showfield2(name)
+    {
+      document.getElementById('option').innerHTML='';
+      if(name=='Company')document.getElementById('option').innerHTML='<span class="input-group-addon">Additional Info</span><input id="ref_comp" type="text" class="form-control" name="ref_comp" placeholder="Enter company name">';
+      else if(name=='Employee')document.getElementById('option').innerHTML='<span class="input-group-addon">Additional Info</span><input id="ref_emp" type="text" class="form-control" name="ref_emp" placeholder="Enter employee name">';
+      else if(name=='Customer')document.getElementById('option').innerHTML='<span class="input-group-addon">Additional Info</span><input id="ref_cus" type="text" class="form-control" name="ref_cus" placeholder="Enter customer name">';
+      else document.getElementById('option').innerHTML='';
+    }
+
+    function showfield3(name)
+    {
+      document.getElementById('option').innerHTML='';
+      if(name=='Yes')document.getElementById('option').innerHTML='<span class="input-group-addon">Additional Info</span><input id="on_det" type="text" class="form-control" name="on_det" placeholder="Additional details">';
+      else document.getElementById('option').innerHTML='';
+    }
+
     </script>
 
 	 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

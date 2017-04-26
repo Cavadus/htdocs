@@ -31,6 +31,12 @@
 
   <body>
 
+    <nav class="navbar navbar-inverse">
+         <div class="container-fluid">
+             <div class="navbar-header"> <a class="navbar-brand" href="index.php">ABC Stone Minnesota</a> </div>
+         </div>
+     </nav>
+
   	<div class="container">
 
   		<h2>Welcome to ABC Stone Minnesota's website!</h2>
