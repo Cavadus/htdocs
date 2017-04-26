@@ -9,23 +9,22 @@
 
       require 'connect.php';
 
-      if(isset($_POST['username'])) {
-        $username = $_POST['username'];
+      if(isset($_POST['lname'])) {
+        $lname = $_POST['lname'];
       }
 
-      if(isset($_POST['password'])) {
-        $password = $_POST['password'];
-        $md5_pass = md5($password);
+      if(isset($_POST['phone'])) {
+        $phone = $_POST['phone'];
       }
 
-      // Check if userName and password are in database
-      $querySQL = 'SELECT * FROM homework02 WHERE username=:username AND password=:password';
+      // Check if lname and phone are in database
+      $querySQL = 'SELECT * FROM homework03 WHERE lname=:lname AND phone=:phone';
       $queryPHP = $db->prepare($querySQL);
-      $queryPHP->execute(array(':username' => $username, ':password' => $md5_pass));
+      $queryPHP->execute(array(':lname' => $lname, ':phone' => $phone));
 
       if($queryPHP->rowCount() == 1) {
-        $_SESSION['username'] = $username;
-        header("location:welcome.php");
+        $_SESSION['lname'] = $lname;
+        header("location:form.php");
         exit;
       }
 
@@ -34,14 +33,14 @@
       }
 
       else {
-          $_SESSION['username'] = $username;
+          $_SESSION['lname'] = $lname;
 
           //Fetch array results
           $row = $queryPHP->fetch(PDO::FETCH_ASSOC);
 
           //Store fetched details into $_SESSION
-          $_SESSION['sess_user_id'] = $row['uid'];
-          $_SESSION['sess_username'] = $row['userName'];
+          $_SESSION['sess_user_id'] = $row['id'];
+          $_SESSION['sess_lname'] = $row['lname'];
       }
   }
 
@@ -55,7 +54,7 @@
   	<meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>PHP Homework 02</title>
+      <title>PHP Homework 03</title>
       <!-- Bootstrap -->
       <link href="css/bootstrap.min.css" rel="stylesheet">
   </head>
@@ -68,14 +67,14 @@
 
   	<div class="container">
 
-  		<h2>Login</h2>
+  		<h2>ABC Stone Minnesota</h2>
 
   			<form id="userInfo" action="" method="post">
   				<div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-  				<input id="username" type="text" class="form-control" name="username" placeholder="Username" required> </div>
+  				<input id="lname" type="text" class="form-control" name="lname" placeholder="Last Name" required> </div>
   				</br>
-  				<div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-  				<input id="password" type="password" class="form-control" name="password" placeholder="Password" required> </div>
+  				<div class="input-group"> <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+  				<input id="phone" type="text" class="form-control" name="phone" placeholder="Phone Number" required> </div>
   				</br>
   				<button  type="submit" class="btn btn-default" name="login">Login</button>
   			</br>
@@ -85,9 +84,6 @@
   			?>
   			</br>
   			</form>
-  				<a href="accountCreate.php">Create a new Account</a>
-  			</div>
-  		</div>
   	</div>
 
       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
