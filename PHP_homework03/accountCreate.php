@@ -2,6 +2,8 @@
   session_start();
   ob_start();
 
+  error_reporting(E_ERROR|E_WARNING);
+
   if(isset($_POST['addbtn'])) {
 
     try {
@@ -19,7 +21,8 @@
                             "on_det" => $_POST['on_det'],
                             "oth_det" => $_POST['oth_det']
                             ));
-        echo "Account Created!";
+
+      echo "Account successfully created!";
     }
 
     catch(PDOException $e) {
