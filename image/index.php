@@ -6,7 +6,8 @@
       <div class="con2">
         <?php
         //Database connection
-        $con = mysqli_connect("47th.info","thinfo_user","password01","thinfo_school");
+        #$con = mysqli_connect("47th.info","thinfo_user","password01","thinfo_school");
+        $con = mysqli_connect("localhost","root","","input_types");
 
         //Retrieve the data from the database table
         $query = mysqli_query($con, "SELECT * FROM t_image");

@@ -1,5 +1,7 @@
 <?php
     session_start();
+    ob_start();
+
     $username = $_SESSION['username'];
 ?>
 
@@ -8,24 +10,28 @@
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>PHP Homework 2</title>
+    <title>47th Personnel Management Portal</title>
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-  <nav class="navbar navbar-inverse">
-       <div class="container-fluid">
-           <div class="navbar-header"> <a class="navbar-brand" href="manage.php">47PMP: Manage</a> </div>
-           <div class="navbar-header"> <a class="navbar-brand" href="manage.php">47PMP: Profile</a> </div>
-       </div>
-  </nav>
+  <?php
+    include 'navbar.php';
+   ?>
 
     <div class="container">
         <div class="jumbotron">
             <h1>Welcome <?php echo $username ?>!</h1>
+            <br>
+            <img src="upload/<?php echo $get_pic['ava_url'] ?>">
+            <br>
             <a href="logout.php">Log out</a>
         </div>
     </div>
 </body>
 </html>
+
+<?php
+  ob_end_flush()
+ ?>

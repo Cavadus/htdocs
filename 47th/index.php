@@ -17,19 +17,19 @@
 
       if(isset($_POST['password'])) {
         $password = $_POST['password'];
-        $hash_pass = password_hash($password, PASSWORD_DEFAULT);
+        $md5_pass = md5($password);
       }
 
       // Check if username, password are in database and if user IS admin
-      $querySQL = "SELECT * FROM pmp_users WHERE username=:username AND password=:password";
-      #$querySQL = "SELECT userName, password, admin FROM pmp_users WHERE username=:username AND password=:password AND admin = 1";
+      $querySQL = "SELECT * FROM pmp_users WHERE username=:username AND password=:password AND admin = 1";
       $queryPHP = $db->prepare($querySQL);
-      $queryPHP->execute(array(':username' => $username, ':password' => $hash_pass));
+      $queryPHP->execute(array(':username' => $username, ':password' => $md5_pass));
+
 
       // Check if username, password are in database AND if user IS NOT admin
-      #$querySQLN = "SELECT userName, password, admin FROM pmp_users WHERE username=:username AND password=:password AND admin = 0";
-      #$queryPHPN = $db->prepare($querySQL);
-      #$queryPHPN->execute(array(':username' => $username, ':password' => $hash_pass));
+      $querySQLN = "SELECT * FROM pmp_users WHERE username=:username AND password=:password AND admin = 0";
+      $queryPHPN = $db->prepare($querySQLN);
+      $queryPHPN->execute(array(':username' => $username, ':password' => $md5_pass));
 
       if($queryPHP->rowCount() == 1) {
         $_SESSION['username'] = $username;
@@ -37,10 +37,9 @@
         exit;
       }
 
-      #if($queryPHPN->rowCount() == 1) {
-      #  $_SESSION['username'] = $username;
-      #  $error = "Your account has been created but you do not have permission to view this page.  Please contact an officer.";
-      #}
+      if($queryPHPN->rowCount() == 1) {
+        $error = "Your account has been created but you do not have permission to view this page.  Please contact an officer.";
+      }
 
       if($queryPHP->rowCount() == 0) {
         $error = "Invalid login.";
@@ -55,6 +54,7 @@
           //Store fetched details into $_SESSION
           $_SESSION['sess_user_id'] = $row['uid'];
           $_SESSION['sess_username'] = $row['userName'];
+          $_SESSION['sess_avatar'] = $row['ava_url'];
       }
   }
 
@@ -79,7 +79,7 @@
 
     <nav class="navbar navbar-inverse">
          <div class="container-fluid">
-             <div class="navbar-header"> <a class="navbar-brand" href="index.php">47PMP: Login</a> </div>
+             <div class="navbar-header"> <a class="navbar-brand" href="http://47th.info">47th Legion Homepage</a> </div>
          </div>
     </nav>
 

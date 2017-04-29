@@ -6,17 +6,18 @@
   {
       $password = $_POST['password'];
       $confirmed = $_POST['confirm'];
+
       if($password == $confirmed)
       {
           try
           {
               require('connect.php');
               $user_pass = $_POST['password'];
-              $hash_pass = password_hash($user_pass, PASSWORD_DEFAULT);
+              $md5pass = md5($user_pass);
 
               $stmt = $db->prepare("INSERT INTO pmp_users(userName,password,securityQues,securityAns)VALUES(:Username,:Password,:SecurityQ,:SecurityA)");
               $stmt->execute(array("Username" => $_POST['username'],
-                                  "Password" => $hash_pass,
+                                  "Password" => $md5pass,
                                   "SecurityQ" => $_POST['security'],
                                   "SecurityA" => $_POST['answer']
                                   ));
