@@ -4,13 +4,13 @@
 $db_host        = 'localhost';
 $db_user        = 'root';
 $db_pass        = '';
-$db_database    = 'homework02';
+$db_database    = 'thinfo_final';
 
 #Live databcase config
 #$db_host        = '47th.info';
-#$db_user        = 'thinfo_user';
-#$db_pass        = 'password01';
-#$db_database    = 'thinfo_school';
+#$db_user        = 'thinfo_pmp';
+#$db_pass        = 'L@m;vN/CSyt>43%c';
+#$db_database    = 'thinfo_final';
 
 $db = new PDO('mysql:host='.$db_host.';
               dbname='.$db_database,
