@@ -25,8 +25,7 @@
                   </tr>
 
                   <tr>
-                    <td colspan="2" align="center"><button type="submit" name="submit">Submit</button><br><br>
-                      <a href="index.php?">View Data</a></td>
+                    <td colspan="2" align="center"><button type="submit" name="submit">Submit</button><a href="index.php?">View Data</a></td>
                   </tr>
 
                   <tr>

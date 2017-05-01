@@ -75,13 +75,9 @@
 
   	 <?php
         require('connect.php')
-      ?>
 
-    <nav class="navbar navbar-inverse">
-         <div class="container-fluid">
-             <div class="navbar-header"> <a class="navbar-brand" href="http://47th.info">47th Legion Homepage</a> </div>
-         </div>
-    </nav>
+        include 'navbar2.php';
+       ?>
 
   	<div class="container">
 

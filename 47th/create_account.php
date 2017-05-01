@@ -46,13 +46,11 @@
 </head>
 <body>
 
-   <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header"> <a class="navbar-brand" href="index.php">47PMP: Login</a> </div>
-        </div>
-    </nav>
+  <?php
+     require('connect.php')
 
-	 <?php require('connect.php') ?>
+     include 'navbar2.php';
+    ?>
 
 	 <div class="container">
         <div class="info">

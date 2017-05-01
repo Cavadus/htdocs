@@ -34,6 +34,11 @@
             <img src="upload/<?php echo $get_pic['ava_url'] ?>">
             <br>
             <a href="logout.php">Log out</a>
+            <form action="upload.php" method="post" enctype="multipart/form-data">
+              Select image to upload:
+              <input type="file" name="fileToUpload" id="fileToUpload">
+              <input type="submit" value="Upload Image" name="submit">
+          </form>
         </div>
       </div>
 
