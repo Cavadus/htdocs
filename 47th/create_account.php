@@ -2,6 +2,8 @@
   session_start();
   ob_start();
 
+  require('connect.php');
+
   if(isset($_POST['addbtn']))
   {
       $password = $_POST['password'];
@@ -47,10 +49,8 @@
 <body>
 
   <?php
-     require('connect.php')
-
-     include 'navbar2.php';
-    ?>
+     include ('navbar2.php');
+  ?>
 
 	 <div class="container">
         <div class="info">

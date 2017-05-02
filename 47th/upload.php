@@ -7,6 +7,7 @@
 
   $username = $_SESSION['username'];
   $con = mysqli_connect("localhost","root","","thinfo_final");
+  #$con = mysqli_connect("47th.info","thinfo_pmp","L@m;vN/CSyt>43%c","thinfo_final")
 
   $target_dir = "upload/";
   $target_filename = basename($_FILES["fileToUpload"]["name"]);

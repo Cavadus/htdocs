@@ -4,6 +4,8 @@
 
   session_start();
   ob_start();
+  
+  require('connect.php');
 
   $error = "";
 
@@ -74,9 +76,8 @@
   <body>
 
   	 <?php
-        require('connect.php')
 
-        include 'navbar2.php';
+        include ('navbar2.php');
        ?>
 
   	<div class="container">
