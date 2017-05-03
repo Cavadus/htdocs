@@ -4,6 +4,7 @@
 
   #Create connection to database
   $con = mysqli_connect("localhost","root","","thinfo_final");
+  #$con = mysqli_connect("47th.info","thinfo_pmp","L@m;vN/CSyt>43%c","thinfo_final");
 
   //Query database for avatar filename
   $avatar = mysqli_query($con, "SELECT ava_url FROM pmp_users WHERE username = '$username'");
