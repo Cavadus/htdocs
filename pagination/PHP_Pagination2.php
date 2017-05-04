@@ -31,18 +31,18 @@
           }
 
           //Retrieve required number of rows from database
-          $getData = $db->prepare('SELECT * FROM pagination LIMIT :start, :limit');
+          $getData = $db->prepare("SELECT members.member_id, groups.g_title, members.members_display_name, members.title, pfields_content.field_17, pfields_content.field_18, members.email, members.last_visit, members.m_awards_display, members.m_awards FROM members INNER JOIN groups ON members.member_group_id = groups.g_id INNER JOIN pfields_content ON members.member_id = pfields_content.member_id WHERE groups.g_id IN (23, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 26) LIMIT :start, :limit;");
           $getData->bindParam(':start', $start, PDO::PARAM_INT);
           $getData->bindParam(':limit', $limit, PDO::PARAM_INT);
           $getData->execute();
 
           //Fetch data and display items
           while ($dispData = $getData->fetch(PDO::FETCH_ASSOC)) {
-            echo $dispData['text']."<br/>";
+          echo "<tr><td>".$dispData['member_id']."</td><td>".$dispData['g_title']."</td><td>".$dispData['members_display_name']."</td><td>".$dispData['title']."</td><td>".$dispData['field_17']."</td><td>".$dispData['field_18']."</td><td>".$dispData['email']."</td><td>".$dispData['last_visit']."</td><td>".$dispData['m_awards_display']."</td></tr>";
           }
 
           //Calculate total number of pages to display based on total number of records in database
-          $data=$db->prepare('SELECT * FROM pagination');
+          $data=$db->prepare('SELECT members.member_id, groups.g_title, members.members_display_name, members.title, pfields_content.field_17, pfields_content.field_18, members.email, members.last_visit, members.m_awards_display, members.m_awards FROM members INNER JOIN groups ON members.member_group_id = groups.g_id INNER JOIN pfields_content ON members.member_id = pfields_content.member_id WHERE groups.g_id IN (23, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 26);');
           $data->execute();
           $totalRecd = $data->rowCount();
           $num_of_pages = ceil($totalRecd/$limit);

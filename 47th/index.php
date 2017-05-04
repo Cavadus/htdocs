@@ -4,7 +4,7 @@
 
   session_start();
   ob_start();
-  
+
   require('connect.php');
 
   $error = "";
@@ -23,24 +23,23 @@
       }
 
       // Check if username, password are in database and if user IS admin
-      $querySQL = "SELECT * FROM pmp_users WHERE username=:username AND password=:password AND admin = 1";
+      $querySQL = "SELECT * FROM pmp_users WHERE username=:username AND password=:password";
       $queryPHP = $db->prepare($querySQL);
       $queryPHP->execute(array(':username' => $username, ':password' => $md5_pass));
 
+      //Fetch array results
+      $row = $queryPHP->fetch(PDO::FETCH_ASSOC);
 
-      // Check if username, password are in database AND if user IS NOT admin
-      $querySQLN = "SELECT * FROM pmp_users WHERE username=:username AND password=:password AND admin = 0";
-      $queryPHPN = $db->prepare($querySQLN);
-      $queryPHPN->execute(array(':username' => $username, ':password' => $md5_pass));
-
-      if($queryPHP->rowCount() == 1) {
+      if($queryPHP->rowCount() == 1 && $row['admin'] == 1) {
         $_SESSION['username'] = $username;
         header("location:manage.php");
         exit;
       }
 
-      if($queryPHPN->rowCount() == 1) {
-        $error = "Your account has been created but you do not have permission to view this page.  Please contact an officer.";
+      if($queryPHP->rowCount() == 1 && $row['admin'] == 0) {
+        $_SESSION['username'] = $username;
+        header("location:almost.php");
+        exit;
       }
 
       if($queryPHP->rowCount() == 0) {
@@ -49,9 +48,6 @@
 
       else {
           $_SESSION['username'] = $username;
-
-          //Fetch array results
-          $row = $queryPHP->fetch(PDO::FETCH_ASSOC);
 
           //Store fetched details into $_SESSION
           $_SESSION['sess_user_id'] = $row['uid'];

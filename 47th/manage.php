@@ -20,23 +20,34 @@
 
     <?php
       include 'navbar.php';
-      $conn = new mysqli("localhost","root","","thinfo_final");
-      #$conn = mysqli_connect("47th.info","thinfo_pmp","L@m;vN/CSyt>43%c","thinfo_final");
+      include 'connect.php';
 
-      $query_members = "SELECT members.member_id, groups.g_title, members.members_display_name, members.title, pfields_content.field_17, pfields_content.field_18, members.email, members.last_visit, members.m_awards_display, members.m_awards FROM members INNER JOIN groups ON members.member_group_id = groups.g_id INNER JOIN pfields_content ON members.member_id = pfields_content.member_id WHERE groups.g_id IN (23, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 26);";
+      $start = 0;
 
-      $query_active = "SELECT members.member_id, groups.g_title, members.members_display_name, members.title, pfields_content.field_17, pfields_content.field_18, members.email, members.last_visit, members.m_awards_display, members.m_awards FROM members INNER JOIN groups ON members.member_group_id = groups.g_id INNER JOIN pfields_content ON members.member_id = pfields_content.member_id WHERE groups.g_id IN (23, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21);";
+      //Items to display per page (limit) is 20
+      $limit = 20;
 
-      $query_inactive ="SELECT members.member_id, groups.g_title, members.members_display_name, members.title, pfields_content.field_17, pfields_content.field_18 ,members.email, members.last_visit, members.m_awards_display, members.m_awards FROM members INNER JOIN groups ON members.member_group_id = groups.g_id INNER JOIN pfields_content ON members.member_id = pfields_content.member_id WHERE groups.g_id = 26;";
+      //Set current page
+      $current_page=1;
 
-      #Create connection
-      $result = $conn->query($query_active);
-
-      #Check connection
-
-      if ($conn->connect_error) {
-          die("Connection failed: " . $conn->connect_error);
+      //If the page number ($current_page) is set...
+      if (isset($_GET['page'])) {
+        $current_page = $_GET['page'];
+        $start = ($current_page-1) * $limit;
       }
+
+      //Retrieve required number of rows from database
+      $getData = $db->prepare("SELECT members.member_id, groups.g_title, members.members_display_name, members.title, pfields_content.field_17, pfields_content.field_18, members.email, from_unixtime(members.last_visit), members.m_awards_display, members.m_awards
+                              FROM members
+                                INNER JOIN groups ON members.member_group_id = groups.g_id
+                                INNER JOIN pfields_content ON members.member_id = pfields_content.member_id
+                                WHERE groups.g_id IN (23, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 26)
+                                LIMIT :start, :limit;");
+      $getData->bindParam(':start', $start, PDO::PARAM_INT);
+      $getData->bindParam(':limit', $limit, PDO::PARAM_INT);
+      $getData->execute();
+
+
     ?>
       <div style="width:100%;">
 
@@ -49,9 +60,9 @@
 
             <div class="col-md-3">
               <div class="form-group">
-                <label for="inputEmail" class="col-md-2 control-label">Username</label>
+                <label for="username" class="col-md-2 control-label">Username</label>
                 <br>
-                <input type="text" class="form-control" id="inputEmail" placeholder="">
+                <input type="text" class="form-control" id="username" placeholder="">
               </div>
             </div>
 
@@ -72,6 +83,7 @@
                     <option>Tesserarian [O2]</option>
                     <option>Optio [O3]</option>
                     <option>Centurion [O4]</option>
+                    <option>Veterans</option>
                   </select>
                 </div>
             </div>
@@ -107,9 +119,7 @@
             <div class="col-md-4">
               <div class="form-group">
                 <div class="col-md-4 col-md-offset-2">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                  <br>
-                  <button type="reset" class="btn btn-default">Cancel</button>
+                  <button type="submit" class="btn btn-primary">Go</button>
                 </div>
               </div>
             </div>
@@ -117,51 +127,70 @@
           </div>
 
           <div class="table-responsive">
-            <table class="table">
+            <table class="table" id="table">
               <thead>
                 <tr>
-                  <th>47ID</th>
-                  <th>Rank/Grade</th>
-                  <th>Name</th>
-                  <th>Title</th>
-                  <th>Vexillation</th>
-                  <th>Section</th>
-                  <th>Email</th>
-                  <th>Last Visit</th>
-                  <th>Awards</th>
+                  <th onclick="sortTable(0)">47ID <span class="glyphicon glyphicon-sort-by-alphabet"></span></th>
+                  <th onclick="sortTable(1)">Rank/Grade <span class="glyphicon glyphicon-sort-by-alphabet"></th>
+                  <th onclick="sortTable(2)">Name <span class="glyphicon glyphicon-sort-by-alphabet"></th>
+                  <th onclick="sortTable(3)">Title <span class="glyphicon glyphicon-sort-by-alphabet"></th>
+                  <th onclick="sortTable(4)">Vexillation <span class="glyphicon glyphicon-sort-by-alphabet"></th>
+                  <th onclick="sortTable(5)">Section <span class="glyphicon glyphicon-sort-by-alphabet"></th>
+                  <th onclick="sortTable(6)">Email <span class="glyphicon glyphicon-sort-by-alphabet"></th>
+                  <th onclick="sortTable(7)">Last Visit <span class="glyphicon glyphicon-sort-by-alphabet"></th>
+                  <th onclick="sortTable(8)">Awards <span class="glyphicon glyphicon-sort-by-alphabet"></th>
                 </tr>
               </thead>
 
               <tbody>
                 <?php
-
-                  if ($result->num_rows > 0) {
-                    print_r($result->fetch_assoc());
+                    print_r($dispData = $getData->fetch(PDO::FETCH_ASSOC));
                     #Output data of each row
-                    while($row = $result->fetch_assoc()) {
-
-                        if ($row['field_17'] == "e") {
-                          $row['field_17'] = "Reserve";
-                        }
-                        
-                        echo "<tr><td>".$row['member_id']."</td><td>".$row['g_title']."</td><td>".$row['members_display_name']."</td><td>".$row['title']."</td><td>".$row['field_17']."</td><td>".$row['field_18']."</td><td>".$row['email']."</td><td>".$row['last_visit']."</td><td>".$row['m_awards_display']."</td></tr>";
+                    //Fetch data and display items
+                    while ($dispData = $getData->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<tr><td>".$dispData['member_id']."</td><td>".$dispData['g_title']."</td><td>".$dispData['members_display_name']."</td><td>".$dispData['title']."</td><td>".$dispData['field_17']."</td><td>".$dispData['field_18']."</td><td>".$dispData['email']."</td><td>".$dispData['from_unixtime(members.last_visit)']."</td><td>".$dispData['m_awards_display']."</td></tr>";
                     }
-                  }
 
-                  else {
-                    echo "<tr><td>0 results</td></tr>";
-                  }
+                    //Calculate total number of pages to display based on total number of records in database
+                    $data=$db->prepare('SELECT members.member_id, groups.g_title, members.members_display_name, members.title, pfields_content.field_17, pfields_content.field_18, members.email, from_unixtime(members.last_visit), members.m_awards_display, members.m_awards
+                                        FROM members
+                                          INNER JOIN groups ON members.member_group_id = groups.g_id
+                                          INNER JOIN pfields_content ON members.member_id = pfields_content.member_id
+                                        WHERE groups.g_id IN (23, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 26);');
+                    $data->execute();
+                    $totalRecd = $data->rowCount();
+                    $num_of_pages = ceil($totalRecd/$limit);
 
-                  $conn->close();
-                 ?>
+                  ?>
               </tbody>
             </table>
+
+            <?php
+            
+              //If current page is less than number of pages, add next button
+              if ($current_page < $num_of_pages) { ?>
+                <button><a href="?page=<?php echo ($current_page+1); ?>">
+                  Next</a></button>
+
+              <?php }
+
+              //Display all page numbers at bottom for navigation
+              echo "<ul class='page'>";
+              for ($i=1; $i <= $num_of_pages; $i++) {
+                //Page number of currently viewed page
+                if ($i == $current_page) {
+                  echo "<li class='current' style='display: inline-block;padding-right:2px;'>".$i.",</li>";
+                }
+
+                else {
+                  echo "<li style='display: inline-block;padding-right:2px;'><a href='?page=".$i."'>".$i."</a>,</li>";
+                }
+              }
+
+              echo "</ul>";
+            ?>
+
           </div>
-
-
-
-
-
 
         </div>
 
@@ -172,6 +201,63 @@
   </div>
   </body>
 </html>
+
+<script>
+  function sortTable(n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById("table");
+    switching = true;
+    //Set the sorting direction to ascending:
+    dir = "asc";
+    /*Make a loop that will continue until
+    no switching has been done:*/
+    while (switching) {
+      //start by saying: no switching is done:
+      switching = false;
+      rows = table.getElementsByTagName("TR");
+      /*Loop through all table rows (except the
+      first, which contains table headers):*/
+      for (i = 1; i < (rows.length - 1); i++) {
+        //start by saying there should be no switching:
+        shouldSwitch = false;
+        /*Get the two elements you want to compare,
+        one from current row and one from the next:*/
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+        /*check if the two rows should switch place,
+        based on the direction, asc or desc:*/
+        if (dir == "asc") {
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+            //if so, mark as a switch and break the loop:
+            shouldSwitch= true;
+            break;
+          }
+        } else if (dir == "desc") {
+          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+            //if so, mark as a switch and break the loop:
+            shouldSwitch= true;
+            break;
+          }
+        }
+      }
+      if (shouldSwitch) {
+        /*If a switch has been marked, make the switch
+        and mark that a switch has been done:*/
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+        //Each time a switch is done, increase this count by 1:
+        switchcount ++;
+      } else {
+        /*If no switching has been done AND the direction is "asc",
+        set the direction to "desc" and run the while loop again.*/
+        if (switchcount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+  }
+</script>
 
 <?php
   ob_end_flush()
