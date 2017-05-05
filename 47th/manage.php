@@ -49,14 +49,24 @@
 
 
     ?>
-      <div style="width:100%;">
+      <div style="width:100%;magin:0 auto;">
 
         <form class="form-horizontal" style="width:80%;margin: 0 auto;">
-        <fieldset>
+          <fieldset>
 
           <legend>Personnel Record Lookup</legend>
 
           <div class="row">
+
+            <div class="col-md-2">
+              <label for="group_select" class="col-md-2 control-label">Username</label>
+              <br>
+              <select multiple="" class="form-control" id="select">
+                <option>Active</option>
+                <option>Inactive</option>
+                <option>Veterans</option>
+              </select>
+            </div>
 
             <div class="col-md-3">
               <div class="form-group">
@@ -118,13 +128,15 @@
 
             <div class="col-md-4">
               <div class="form-group">
-                <div class="col-md-4 col-md-offset-2">
+                <div class="col-md-1">
                   <button type="submit" class="btn btn-primary">Go</button>
                 </div>
               </div>
             </div>
 
           </div>
+        </fieldset>
+      </form>
 
           <div class="table-responsive">
             <table class="table" id="table">
@@ -138,7 +150,7 @@
                   <th onclick="sortTable(5)">Section <span class="glyphicon glyphicon-sort-by-alphabet"></th>
                   <th onclick="sortTable(6)">Email <span class="glyphicon glyphicon-sort-by-alphabet"></th>
                   <th onclick="sortTable(7)">Last Visit <span class="glyphicon glyphicon-sort-by-alphabet"></th>
-                  <th onclick="sortTable(8)">Awards <span class="glyphicon glyphicon-sort-by-alphabet"></th>
+                  <th>Modify <span class="glyphicon glyphicon-edit"></th>
                 </tr>
               </thead>
 
@@ -148,7 +160,23 @@
                     #Output data of each row
                     //Fetch data and display items
                     while ($dispData = $getData->fetch(PDO::FETCH_ASSOC)) {
-                    echo "<tr><td>".$dispData['member_id']."</td><td>".$dispData['g_title']."</td><td>".$dispData['members_display_name']."</td><td>".$dispData['title']."</td><td>".$dispData['field_17']."</td><td>".$dispData['field_18']."</td><td>".$dispData['email']."</td><td>".$dispData['from_unixtime(members.last_visit)']."</td><td>".$dispData['m_awards_display']."</td></tr>";
+                    echo "<tr><td>"
+                    .$dispData['member_id']."</td><td>"
+                    .$dispData['g_title']."</td><td>"
+                    .$dispData['members_display_name']."</td><td>"
+                    .$dispData['title']."</td><td>"
+                    .$dispData['field_17']."</td><td>"
+                    .$dispData['field_18']."</td><td>"
+                    .$dispData['email']."</td><td>"
+                    .$dispData['from_unixtime(members.last_visit)']."</td><td>
+
+                      <form action='edit_row.php' style='display:inline-block;'>
+                        <button type='submit' class='btn btn-primary'>Edit</button>
+                      </form>
+
+                      <form action='delete_row.php' method='POST' style='display:inline-block;'>
+                        <button type='submit' class='btn btn-danger' name='delete' value='".$dispData['member_id']."' onclick='return confirm_delete()'>Delete</button>
+                      </form></td></tr>";
                     }
 
                     //Calculate total number of pages to display based on total number of records in database
@@ -166,7 +194,7 @@
             </table>
 
             <?php
-            
+
               //If current page is less than number of pages, add next button
               if ($current_page < $num_of_pages) { ?>
                 <button><a href="?page=<?php echo ($current_page+1); ?>">
@@ -232,7 +260,9 @@
             shouldSwitch= true;
             break;
           }
-        } else if (dir == "desc") {
+        }
+
+        else if (dir == "desc") {
           if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
             //if so, mark as a switch and break the loop:
             shouldSwitch= true;
@@ -247,7 +277,9 @@
         switching = true;
         //Each time a switch is done, increase this count by 1:
         switchcount ++;
-      } else {
+      }
+
+      else {
         /*If no switching has been done AND the direction is "asc",
         set the direction to "desc" and run the while loop again.*/
         if (switchcount == 0 && dir == "asc") {
@@ -257,6 +289,10 @@
       }
     }
   }
+
+  function confirm_delete() {
+    return confirm('Are you sureyou want to delete this user?');
+};
 </script>
 
 <?php
