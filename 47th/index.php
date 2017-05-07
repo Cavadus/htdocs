@@ -5,13 +5,11 @@
   session_start();
   ob_start();
 
-  require('connect.php');
+  require 'connect.php';
 
   $error = "";
 
   if(isset($_POST['login'])) {
-
-      require 'connect.php';
 
       if(isset($_POST['username'])) {
         $username = $_POST['username'];

@@ -14,7 +14,11 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>47th Personnel Management Portal</title>
       <!-- Bootstrap -->
-      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="js/bootstrap.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+
   </head>
   <body>
 
@@ -30,6 +34,12 @@
       //Set current page
       $current_page=1;
 
+      //Search Group Variables
+      $active_members = '23, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21';
+      $inactive_members = '26';
+      $running_ranks = '';
+      $search_group = $active_members;
+
       //If the page number ($current_page) is set...
       if (isset($_GET['page'])) {
         $current_page = $_GET['page'];
@@ -41,11 +51,20 @@
                               FROM members
                                 INNER JOIN groups ON members.member_group_id = groups.g_id
                                 INNER JOIN pfields_content ON members.member_id = pfields_content.member_id
-                                WHERE groups.g_id IN (23, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 26)
-                                LIMIT :start, :limit;");
-      $getData->bindParam(':start', $start, PDO::PARAM_INT);
-      $getData->bindParam(':limit', $limit, PDO::PARAM_INT);
-      $getData->execute();
+                              WHERE groups.g_id IN (:selected_groups)
+                              ORDER BY members.members_display_name
+                              LIMIT :start, :limit;");
+      $getData->execute(array("selected_groups" => $search_group,
+                          "start" => $start,
+                          "limit" => $limit
+                          ));
+      #$getData->bindParam(':selected_groups', $search_group, PDO::PARAM_STR);
+      #$getData->bindParam(':start', $start, PDO::PARAM_INT);
+      #$getData->bindParam(':limit', $limit, PDO::PARAM_INT);
+
+
+
+      #$getData->execute();
 
 
     ?>
@@ -54,17 +73,16 @@
         <form class="form-horizontal" style="width:80%;margin: 0 auto;">
           <fieldset>
 
-          <legend>Personnel Record Lookup</legend>
+          <legend>Personnel Records Lookup</legend>
 
           <div class="row">
 
             <div class="col-md-2">
-              <label for="group_select" class="col-md-2 control-label">Username</label>
+              <label for="group_select" class="col-md-2 control-label">Status</label>
               <br>
               <select multiple="" class="form-control" id="select">
-                <option>Active</option>
-                <option>Inactive</option>
-                <option>Veterans</option>
+                <option value="23, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21">Active</option>
+                <option value="26">Inactive</option>
               </select>
             </div>
 
@@ -81,19 +99,23 @@
                 <label for="select" class="col-md-2 control-label">Rank</label>
                 <br>
                   <select multiple="" class="form-control" id="rank" name="rank">
-                    <option>Tiro [E1]</option>
-                    <option>Miles [E2]</option>
-                    <option>Miles Gregarius [E3]</option>
-                    <option>Decanus [E4]</option>
-                    <option>Carian [E5]</option>
-                    <option>Duplicarian [E6]</option>
-                    <option>Triplicarian [E7]</option>
-                    <option>Signifer [E8]</option>
-                    <option>Vexillarian [O1]</option>
-                    <option>Tesserarian [O2]</option>
-                    <option>Optio [O3]</option>
-                    <option>Centurion [O4]</option>
-                    <option>Veterans</option>
+                    <option value="23">Tiro [E1]</option>
+                    <option value="8">Miles [E2]</option>
+                    <option value="9">Miles Gregarius [E3]</option>
+                    <option value="10">Decanus [E4]</option>
+                    <option value="11">Carian [E5]</option>
+                    <option value="12">Duplicarian [E6]</option>
+                    <option value="13">Triplicarian [E7]</option>
+                    <option value="14">Signifer [E8]</option>
+                    <option value="15">Vexillarian [O1]</option>
+                    <option value="16">Tesserarian [O2]</option>
+                    <option value="17">Optio [O3]</option>
+                    <option value="18">Centurion [O4]</option>
+                    <option value="7">Prefect [O5]</option>
+                    <option value="19">Tribune [O6]</option>
+                    <option value="20">Legate [O7]</option>
+                    <option value="21">Praetor [O8]</option>
+                    <option value="26">Veterans</option>
                   </select>
                 </div>
             </div>
@@ -104,10 +126,10 @@
                 <br>
                   <select multiple="" class="form-control" id="vexillation" name="vexillation">
                     <option>HQ</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
+                    <option>1st</option>
+                    <option>2nd</option>
+                    <option>3rd</option>
+                    <option>4th</option>
                   </select>
                 </div>
             </div>
@@ -117,20 +139,18 @@
                 <label for="select" class="col-md-1 control-label">Section</label>
                 <br>
                   <select multiple="" class="form-control" id="vexillation" name="vexillation">
-                    <option>HQ</option>
-                    <option>A</option>
-                    <option>B</option>
-                    <option>C</option>
-                    <option>D</option>
+                    <option>Alpha</option>
+                    <option>Brava</option>
+                    <option>Charlie</option>
+                    <option>Delta</option>
                   </select>
               </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-1 offset-md-4">
               <div class="form-group">
-                <div class="col-md-1">
+                <br><br>
                   <button type="submit" class="btn btn-primary">Go</button>
-                </div>
               </div>
             </div>
 
@@ -157,9 +177,60 @@
               <tbody>
                 <?php
                     print_r($dispData = $getData->fetch(PDO::FETCH_ASSOC));
-                    #Output data of each row
-                    //Fetch data and display items
+                    #Replace keys with human readable
+
+                    #Fetch data and display items
                     while ($dispData = $getData->fetch(PDO::FETCH_ASSOC)) {
+                      #Replace keys with human readable
+                      if ($dispData['field_17'] == "c") {
+                        $dispData['field_17'] = "Century";
+                      }
+                      if ($dispData['field_17'] == "v") {
+                        $dispData['field_17'] = "Civilian";
+                      }
+                      if ($dispData['field_17'] == "a") {
+                        $dispData['field_17'] = "Alliance";
+                      }
+                      if ($dispData['field_17'] == "r") {
+                        $dispData['field_17'] = "Reception";
+                      }
+                      if ($dispData['field_17'] == "1") {
+                        $dispData['field_17'] = "1st";
+                      }
+                      if ($dispData['field_17'] == "2") {
+                        $dispData['field_17'] = "2nd";
+                      }
+                      if ($dispData['field_17'] == "3") {
+                        $dispData['field_17'] = "3rd";
+                      }
+                      if ($dispData['field_17'] == "4") {
+                        $dispData['field_17'] = "4th";
+                      }
+                      if ($dispData['field_17'] == "e") {
+                        $dispData['field_17'] = "Reserve";
+                      }
+                      if ($dispData['field_17'] == "l") {
+                        $dispData['field_17'] = "Legion";
+                      }
+                      if ($dispData['field_18'] == "n") {
+                        $dispData['field_18'] = "N/A";
+                      }
+                      if ($dispData['field_18'] == "a") {
+                        $dispData['field_18'] = "Alpha";
+                      }
+                      if ($dispData['field_18'] == "b") {
+                        $dispData['field_18'] = "Bravo";
+                      }
+                      if ($dispData['field_18'] == "c") {
+                        $dispData['field_18'] = "Charlie";
+                      }
+                      if ($dispData['field_18'] == "d") {
+                        $dispData['field_18'] = "Delta";
+                      }
+                      if ($dispData['field_18'] == "h") {
+                        $dispData['field_18'] = "HQ";
+                      }
+                      //Generate rows from DB info per account
                     echo "<tr><td>"
                     .$dispData['member_id']."</td><td>"
                     .$dispData['g_title']."</td><td>"
@@ -170,8 +241,8 @@
                     .$dispData['email']."</td><td>"
                     .$dispData['from_unixtime(members.last_visit)']."</td><td>
 
-                      <form action='edit_row.php' style='display:inline-block;'>
-                        <button type='submit' class='btn btn-primary'>Edit</button>
+                      <form action='edit_row.php' method='POST' style='display:inline-block;'>
+                        <button type='button' class='btn btn-primary' id='edit_button' value='".$dispData['member_id']."'>Edit</button>
                       </form>
 
                       <form action='delete_row.php' method='POST' style='display:inline-block;'>
@@ -222,11 +293,12 @@
 
         </div>
 
-
       </fieldset>
+
     </form>
 
   </div>
+
   </body>
 </html>
 
@@ -288,11 +360,12 @@
         }
       }
     }
-  }
+  };
 
   function confirm_delete() {
-    return confirm('Are you sureyou want to delete this user?');
-};
+    return confirm('Are you sure you want to delete this user?');
+  };
+
 </script>
 
 <?php
