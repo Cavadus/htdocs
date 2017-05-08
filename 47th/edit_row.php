@@ -77,7 +77,7 @@
       <div class="container" style='width:100%;margin:0 auto;'>
         <div class="jumbotron" style='width:80%;margin:0 auto;'>
           <?php
-
+            #If user's data was successfully updated into DB from update_row.php echo success message
             echo $_SESSION['update_success'];
             $_SESSION['update_success'] = "";
 
