@@ -145,11 +145,10 @@
               </div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-1 col-sm-offset-1">
               <div class="form-group">
-                <div class="col-md-1">
+                  <br><br>
                   <button type="submit" class="btn btn-primary">Go</button>
-                </div>
               </div>
             </div>
 

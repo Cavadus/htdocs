@@ -10,6 +10,9 @@
 
   $username = $_SESSION['username'];
 
+  #Initialize update_row.php return as false
+  $_SESSION['return'] = FALSE;
+
 ?>
 
 <html lang="en">
@@ -73,6 +76,12 @@
 
       <div class="container" style='width:100%;margin:0 auto;'>
         <div class="jumbotron" style='width:80%;margin:0 auto;'>
+          <?php
+
+            echo $_SESSION['update_success'];
+            $_SESSION['update_success'] = "";
+
+          ?>
             <div class="table-responsive">
 
               <table class="table" id="table">
@@ -183,7 +192,6 @@
                       </form></td></tr>";
                   }
                 ?>
-
           </tbody>
         </table>
 
@@ -223,7 +231,7 @@
   function confirm_update() {
     return confirm('Are you sure you want to update this user?');
   }
-  
+
   //Modal button function
   $(document).ready(function(){
     $("#award").click(function(){

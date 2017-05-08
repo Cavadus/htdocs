@@ -3,6 +3,8 @@
   error_reporting(E_ALL);
   ini_set('display_errors', 1);
 
+  session_start();
+
   #Check if update form's button was pushed
   if(isset($_POST['update']))
   {
@@ -44,8 +46,17 @@
       #Set sanitized variables via array and execute query
       $edit_row_pfields->execute(array("vex" => $vex, "sec" => $sec, "member" => $member_id));
 
+
+      #Set $_GET back up for page load query in edit_row.php
+      $_GET['edit'] = $member_id;
+      $_SESSION['update_success'] ="<div class='alert alert-dismissible alert-success'>
+              <button type='button' class='close' data-dismiss='alert'>&times;</button>
+              <strong>This user was successfully updated!</strong></a>
+            </div>";
+
       #Redirect back to edit_row.php
-      header("Location:edit_row.php");
+      $previousPage = $_SERVER["HTTP_REFERER"];
+      header('Location: '.$previousPage);
     }
     catch(PDOException $e)
     {
