@@ -1,5 +1,5 @@
 <?php
-
+  #delete_row.php
   if(isset($_POST['delete']))
   {
     try

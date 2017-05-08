@@ -4,14 +4,16 @@
   ini_set('display_errors', 1);
 
   session_start();
+  if(empty($_SESSION['logged_in']))
+  {
+      header('Location: http://' . $_SERVER['HTTP_HOST'] . '/personnel/index.php');
+      exit;
+  }
 
   #Include database connection
   include 'connect.php';
 
   $username = $_SESSION['username'];
-
-  #Initialize update_row.php return as false
-  $_SESSION['return'] = FALSE;
 
 ?>
 

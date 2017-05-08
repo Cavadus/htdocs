@@ -25,7 +25,7 @@
         $md5_pass = md5($password);
       }
 
-      #Check if username, password are in database and if user IS admin
+      #Query DB for login detals
       $querySQL = "SELECT * FROM pmp_users WHERE username=:username AND password=:password";
       $queryPHP = $db->prepare($querySQL);
       $queryPHP->execute(array(':username' => $username, ':password' => $md5_pass));
@@ -36,6 +36,7 @@
       #User, password are correct and account is admin
       if($queryPHP->rowCount() == 1 && $row['admin'] == 1) {
         $_SESSION['username'] = $username;
+        $_SESSION['logged_in'] = True;
         header("location:manage.php");
         exit;
       }

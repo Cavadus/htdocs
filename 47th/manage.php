@@ -4,6 +4,12 @@
     session_start();
     ob_start();
 
+    if(empty($_SESSION['logged_in']))
+    {
+        header('Location: http://' . $_SERVER['HTTP_HOST'] . '/personnel/index.php');
+        exit;
+    }
+
     $username = $_SESSION['username'];
 ?>
 

@@ -1,4 +1,10 @@
 <?php
+
+  if(empty($_SESSION['logged_in']))
+  {
+      header('Location: http://' . $_SERVER['HTTP_HOST'] . '/personnel/index.php');
+      exit;
+  }
   #Retrive username from session
   $username = $_SESSION['username'];
 
