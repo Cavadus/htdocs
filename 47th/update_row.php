@@ -1,12 +1,17 @@
 <?php
+  #Verbose error reporting enabled
   error_reporting(E_ALL);
   ini_set('display_errors', 1);
+
+  #Check if update form's button was pushed
   if(isset($_POST['update']))
   {
     try
     {
+      #Include database connection
       include 'connect.php';
 
+      #Fetch form details from edit_row.php
       $member_id = $_POST['update'];
       $grade = $_POST['rank'];
       $name = $_POST['member_name'];
@@ -28,6 +33,7 @@
                                         SET member_group_id = :grade, members_display_name = :name, title = :title, email = :email
                                         WHERE member_id = :member");
 
+      #Set sanitized variables via array and execute query
       $edit_row_members->execute(array("grade" => $grade,"name" => $name, "title" => $title, "email"=> $email, "member" => $member_id));
 
       #Update pfields_content table
@@ -35,8 +41,10 @@
                                         SET field_17 = :vex, field_18 =:sec
                                         WHERE member_id = :member");
 
+      #Set sanitized variables via array and execute query
       $edit_row_pfields->execute(array("vex" => $vex, "sec" => $sec, "member" => $member_id));
 
+      #Redirect back to edit_row.php
       header("Location:edit_row.php");
     }
     catch(PDOException $e)

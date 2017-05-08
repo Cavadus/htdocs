@@ -2,52 +2,58 @@
   error_reporting(E_ALL);
   ini_set('display_errors', 1);
 
+  #Start session
   session_start();
   ob_start();
 
+  #Connect database
   require 'connect.php';
 
   $error = "";
 
+  #Check submit button
   if(isset($_POST['login'])) {
 
+      #Check username field
       if(isset($_POST['username'])) {
         $username = $_POST['username'];
       }
 
+      #Check password and md5 encrypt
       if(isset($_POST['password'])) {
         $password = $_POST['password'];
         $md5_pass = md5($password);
       }
 
-      // Check if username, password are in database and if user IS admin
+      #Check if username, password are in database and if user IS admin
       $querySQL = "SELECT * FROM pmp_users WHERE username=:username AND password=:password";
       $queryPHP = $db->prepare($querySQL);
       $queryPHP->execute(array(':username' => $username, ':password' => $md5_pass));
 
-      //Fetch array results
+      #Fetch array results
       $row = $queryPHP->fetch(PDO::FETCH_ASSOC);
 
+      #User, password are correct and account is admin
       if($queryPHP->rowCount() == 1 && $row['admin'] == 1) {
         $_SESSION['username'] = $username;
         header("location:manage.php");
         exit;
       }
 
+      #User, password are correct and account is not admin
       if($queryPHP->rowCount() == 1 && $row['admin'] == 0) {
         $_SESSION['username'] = $username;
         header("location:almost.php");
         exit;
       }
-
+      #User, password login details incorrect
       if($queryPHP->rowCount() == 0) {
         $error = "Invalid login.";
       }
 
+      #Store some stuff to session for later
       else {
           $_SESSION['username'] = $username;
-
-          //Store fetched details into $_SESSION
           $_SESSION['sess_user_id'] = $row['uid'];
           $_SESSION['sess_username'] = $row['userName'];
           $_SESSION['sess_avatar'] = $row['ava_url'];
@@ -70,7 +76,7 @@
   <body>
 
   	 <?php
-
+        #Non-logged in navbar
         include ('navbar2.php');
        ?>
 

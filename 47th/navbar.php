@@ -4,7 +4,7 @@
 
   #Create connection to database
   require 'connect.php';
-
+  #Grab avatar filename for use in path below
   $query = "SELECT ava_url FROM pmp_users WHERE username = :username";
   $statement = $db->prepare($query);
   $statement->execute(array('username' => $username));

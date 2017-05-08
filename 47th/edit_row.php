@@ -1,10 +1,11 @@
 <?php
-
+  #Enable verbose error reporting
   error_reporting(E_ALL);
   ini_set('display_errors', 1);
 
   session_start();
 
+  #Include database connection
   include 'connect.php';
 
   $username = $_SESSION['username'];
@@ -48,6 +49,7 @@
           $getData->bindParam(':member', $member_id, PDO::PARAM_INT);
           $getData->execute();
 
+          #Pull ranks data from groups table for while loop used to populate rank dropdown
           $getRanks = $db->prepare("SELECT g_id, g_title
                                     FROM groups
                                     WHERE g_id IN (23, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 26)
@@ -96,23 +98,26 @@
                     #Print array for debugging purposes
                     #print_r($dispData = $getData->fetch(PDO::FETCH_ASSOC));
 
-                    #Initialize arrays for Vexillation and Section dropdowns
+                    #Initialize arrays for Vexillation and Section dropdowns because their DB column is bananas
                     $vex_array = array("v"=>"Civilian", "a"=>"Alliance", "r"=>"Reception", "1"=>"1st", "2"=>"2nd", "3"=>"3rd", "4"=>"4th", "e"=>"Reserve", "c"=>"Century", "l"=>"Legion");
                     $sec_array = array("n"=>"N/A", "a"=>"Alpha",  "b"=>"Bravo",  "c"=>"Charlie",  "d"=>"Delta",  "h"=>"HQ");
 
                     #Fetch data and display items
                     while ($dispData = $getData->fetch(PDO::FETCH_ASSOC)) {
 
+                      #Begin edit form
                       echo "<form action='update_row.php' method='POST' style='display:inline-block;'><tr><td>"
                       .$dispData['member_id']."</td>
                       <td>
                       <select class='form-control' id='rank' name='rank'>";
+                        #Generate ranks data to populate drop down via query
                         while ($rankData = $getRanks->fetch(PDO::FETCH_ASSOC)) {
 
+                          #If rank matches user's rank select that rank
                           if($dispData['member_group_id'] == $rankData['g_id']) {
                             echo "<option value='".$rankData['g_id']."' selected>".$rankData['g_title']."</option>";
                           }
-
+                          #If rank doesn't match user's rank do not select it.
                           else {
                             echo "<option value='".$rankData['g_id']."'>".$rankData['g_title']."</option>";
                           }
@@ -127,12 +132,14 @@
                       <td>
                         <select class='form-control' id='vexillation' name='vexillation'>";
 
+                        #Populate vexillation dropdown with vex_array
                         foreach($vex_array as $x => $x_value) {
 
+                          #If vex matches user's vex select that vex
                           if($dispData['field_17'] == $x) {
                             echo "<option value='".$x."' selected>".$x_value."</option>";
                           }
-
+                          #If it doesn't match do not select it
                           else {
                             echo "<option value='".$x."'>".$x_value."</option>";
                           }
@@ -145,18 +152,24 @@
                       <td>
                         <select class='form-control' id='section' name='section'>";
 
+                        #Populate section dropdown with sec_array
                         foreach($sec_array as $x => $x_value) {
 
+                          #If sec matches user's sec select that sec
                           if($dispData['field_18'] == $x) {
                             echo "<option value='".$x."' selected>".$x_value."</option>";
                           }
 
+                          #If it doesn't match do not select
                           else {
                             echo "<option value='".$x."'>".$x_value."</option>";
                           }
 
                         }
 
+                      #Below, echo query results from associative array into email text field via value and placeholder.  Display user's last_visit converted from unix time to human readable time
+                      #Awards button opens up awards modal
+                      #Submit button pushes member_id through GET method to update_row.php
                       echo "</select>
                       </td>
 
@@ -206,10 +219,12 @@
 </div>
 
 <script>
+  //Creates confirmation pop-up when admin edits user
   function confirm_update() {
     return confirm('Are you sure you want to update this user?');
   }
-
+  
+  //Modal button function
   $(document).ready(function(){
     $("#award").click(function(){
         $("#awards").modal();
