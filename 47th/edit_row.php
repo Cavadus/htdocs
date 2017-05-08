@@ -100,13 +100,10 @@
                     $vex_array = array("v"=>"Civilian", "a"=>"Alliance", "r"=>"Reception", "1"=>"1st", "2"=>"2nd", "3"=>"3rd", "4"=>"4th", "e"=>"Reserve", "c"=>"Century", "l"=>"Legion");
                     $sec_array = array("n"=>"N/A", "a"=>"Alpha",  "b"=>"Bravo",  "c"=>"Charlie",  "d"=>"Delta",  "h"=>"HQ");
 
-
-
-
                     #Fetch data and display items
                     while ($dispData = $getData->fetch(PDO::FETCH_ASSOC)) {
 
-                      echo "<tr><td>"
+                      echo "<form action='update_row.php' method='POST' style='display:inline-block;'><tr><td>"
                       .$dispData['member_id']."</td>
                       <td>
                       <select class='form-control' id='rank' name='rank'>";
@@ -124,8 +121,8 @@
 
                       echo "</td>
 
-                      <td><form style='display:inline-block;'><input type='text' class='form-control' id='member_name' value='".$dispData['members_display_name']."'></form></td>
-                      <td><form style='display:inline-block;'><input type='text' class='form-control' id='title' value='".$dispData['title']."'></form></td>
+                      <td><input type='text' class='form-control' id='member_name' value='".$dispData['members_display_name']."'></td>
+                      <td><input type='text' class='form-control' id='title' value='".$dispData['title']."'></td>
 
                       <td>
                         <select class='form-control' id='vexillation' name='vexillation'>";
@@ -163,15 +160,13 @@
                       echo "</select>
                       </td>
 
-                      <td><form style='display:inline-block;'><input type='text' class='form-control' id='email' value='".$dispData['email']."'></form></td><td>"
-                      .$dispData['from_unixtime(members.last_visit)']."</td><td>
+                      <td><input type='text' class='form-control' id='email' value='".$dispData['email']."' /></td><td>"
 
-                      <form style='display:inline-block;'>
-                        <button type='button' class='btn btn-success' name='award' id='award'>Awards</button>
-                      </form></td><td>
+                      .$dispData['from_unixtime(members.last_visit)']."</td>
 
-                      <form action='update_row.php' method='POST' style='display:inline-block;'>
-                        <button type='submit' class='btn btn-primary' id='update' name='update' value='".$dispData['member_id']."' onclick='return confirm_update()'>Update</button>
+                      <td><button type='button' class='btn btn-success' name='award' id='award'>Awards</button></td>
+
+                      <td><button type='submit' class='btn btn-primary' id='update' name='update' value='".$dispData['member_id']."' onclick='return confirm_update()'>Update</button>
                       </form></td></tr>";
                   }
                 ?>
