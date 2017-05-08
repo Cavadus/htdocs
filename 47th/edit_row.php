@@ -121,8 +121,8 @@
 
                       echo "</td>
 
-                      <td><input type='text' class='form-control' id='member_name' value='".$dispData['members_display_name']."'></td>
-                      <td><input type='text' class='form-control' id='title' value='".$dispData['title']."'></td>
+                      <td><input type='text' class='form-control' name='member_name' id='member_name' placeholder='".$dispData['members_display_name']."' value='".$dispData['members_display_name']."' /></td>
+                      <td><input type='text' class='form-control' name='title' id='title' placeholder='".$dispData['title']."' value='".$dispData['title']."' /></td>
 
                       <td>
                         <select class='form-control' id='vexillation' name='vexillation'>";
@@ -160,7 +160,7 @@
                       echo "</select>
                       </td>
 
-                      <td><input type='text' class='form-control' id='email' value='".$dispData['email']."' /></td><td>"
+                      <td><input type='text' class='form-control' name='email' id='email' placeholder='".$dispData['email']."' value='".$dispData['email']."' /></td><td>"
 
                       .$dispData['from_unixtime(members.last_visit)']."</td>
 
