@@ -49,6 +49,8 @@
 
       #Set $_GET back up for page load query in edit_row.php
       $_GET['edit'] = $member_id;
+
+      #Set session variable message for successful DB update
       $_SESSION['update_success'] ="<div class='alert alert-dismissible alert-success'>
               <button type='button' class='close' data-dismiss='alert'>&times;</button>
               <strong>This user was successfully updated!</strong></a>
