@@ -7,16 +7,9 @@
 
   $query = "SELECT ava_url FROM pmp_users WHERE username = :username";
   $statement = $db->prepare($query);
-  $statement->execute( array('username' => $username) );
+  $statement->execute(array('username' => $username));
   $avatar = $statement->fetchColumn();
 
-  #Old way
-  #$con = mysqli_connect("localhost","root","","thinfo_final");
-  #$con = mysqli_connect("47th.info","thinfo_pmp","L@m;vN/CSyt>43%c","thinfo_final");
-  //Query database for avatar filename
-  #$avatar = mysqli_query($con, "SELECT ava_url FROM pmp_users WHERE username = '$username'");
-  #$get_pic=Mysqli_fetch_assoc($avatar);
-  #mysqli_close($con);
  ?>
 
 <nav class="navbar navbar-inverse">

@@ -8,6 +8,14 @@
 
   $username = $_SESSION['username'];
 
+  #Create connection to database
+  require 'connect.php';
+
+  $query = "SELECT ava_url FROM pmp_users WHERE username = :username";
+  $statement = $db->prepare($query);
+  $statement->execute(array('username' => $username));
+  $avatar = $statement->fetchColumn();
+
 ?>
 
 <html lang="en">
@@ -31,7 +39,7 @@
         <div class="jumbotron">
             <h1>Welcome <?php echo $username ?>!</h1>
             <br>
-            <img src="upload/<?php echo $get_pic['ava_url'] ?>">
+            <img src="upload/<?php echo $avatar ?>">
             <br>
             <br>
             <form action="upload.php" method="post" enctype="multipart/form-data">

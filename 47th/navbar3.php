@@ -3,14 +3,13 @@
   $username = $_SESSION['username'];
 
   #Create connection to database
-  $con = mysqli_connect("localhost","root","","thinfo_final");
-  #$con = mysqli_connect("47th.info","thinfo_pmp","L@m;vN/CSyt>43%c","thinfo_final");
+  require 'connect.php';
 
-  //Query database for avatar filename
-  $avatar = mysqli_query($con, "SELECT ava_url FROM pmp_users WHERE username = '$username'");
-  $get_pic=Mysqli_fetch_assoc($avatar);
+  $query = "SELECT ava_url FROM pmp_users WHERE username = :username";
+  $statement = $db->prepare($query);
+  $statement->execute(array('username' => $username));
+  $avatar = $statement->fetchColumn();
 
-  mysqli_close($con);
  ?>
 
 <nav class="navbar navbar-inverse">

@@ -22,7 +22,7 @@
      ?>
      <div class="panel panel-primary" style="width:40%;margin:0 auto;">
        <div class="panel-heading">
-         <h3 class="panel-title">Your Almost There...</h3>
+         <h3 class="panel-title">You're Almost There...</h3>
        </div>
        <div class="panel-body">
          Please contact an officer to have your account privileges elevated.

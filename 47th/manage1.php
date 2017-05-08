@@ -61,7 +61,7 @@
     ?>
       <div style="width:80%;margin:0 auto;">
 
-        <form class="form-horizontal" style="width:80%;margin:0 auto;">
+        <form class="form-horizontal">
           <fieldset>
 
           <legend>Personnel Record Lookup</legend>
@@ -176,7 +176,7 @@
               <tbody>
                 <?php
                     #Print array for debugging purposes
-                    #print_r($dispData = $getData->fetch(PDO::FETCH_ASSOC));
+                    print_r($dispData = $getData->fetch(PDO::FETCH_ASSOC));
 
                     //Fetch data and display items
                     while ($dispData = $getData->fetch(PDO::FETCH_ASSOC)) {
@@ -255,8 +255,7 @@
                                         FROM members
                                           INNER JOIN groups ON members.member_group_id = groups.g_id
                                           INNER JOIN pfields_content ON members.member_id = pfields_content.member_id
-                                        WHERE groups.g_id IN (23, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 26)
-                                        ORDER BY members.members_display_name;');
+                                        WHERE groups.g_id IN (23, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 26);');
                     $data->execute();
                     $totalRecd = $data->rowCount();
                     $num_of_pages = ceil($totalRecd/$limit);
@@ -275,29 +274,27 @@
               <?php }
 
               //Display all page numbers at bottom for navigation
-              echo "<ul class='page'>";
+              echo "<ul class='pagination'><li class='disabled'><a href='?page=".$current_page+1."'>&laquo;</a></li>";
               for ($i=1; $i <= $num_of_pages; $i++) {
                 //Page number of currently viewed page
                 if ($i == $current_page) {
-                  echo "<li class='current' style='display: inline-block;padding-right:2px;'>".$i.",</li>";
+                  echo "<li class='active'>".$i.",</li>";
                 }
 
                 else {
-                  echo "<li style='display: inline-block;padding-right:2px;'><a href='?page=".$i."'>".$i."</a>,</li>";
+                  echo "<li><a href='?page=".$i."'>".$i."</a>,</li>";
                 }
               }
 
-              echo "</ul>";
+              echo "<li><a href='?page=".$current_page-1."'>&raquo;</a></li></ul>";
             ?>
 
+          </div>
 
-        </fieldset>
-      </form>
+          </fieldset>
+        </form>
 
-        </div>
-
-
-
+      </div>
 
   </body>
 </html>
@@ -363,8 +360,8 @@
   }
 
   function confirm_delete() {
-    return confirm('Are you sureyou want to delete this user?');
-};
+    return confirm('Are you sure you want to delete this user?');
+  }
 </script>
 
 <?php
